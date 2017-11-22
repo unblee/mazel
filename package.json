@@ -6,6 +6,8 @@
   "author": "unblee",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "deploy": "now -e NODE_ENV=production --token $NOW_TOKEN",
+    "alias": "now alias --token=$NOW_TOKEN"
   }
 }
