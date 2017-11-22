@@ -44,7 +44,11 @@ function shuffle(array) {
 const server = http.createServer((req, res) => {
   const text = url.parse(req.url, true).query.text
   if (text === undefined) {
-    res.end("Please set a text")
+    res.setHeader("content-type", "application/json")
+    res.end(JSON.stringify({
+      "response_type": "ephemeral",
+      "text": "Please set a text"
+    }))
     return
   }
   const texts = text.split(" ")
@@ -53,7 +57,11 @@ const server = http.createServer((req, res) => {
   const number = extractNumber(texts)
   const args = extractArgs(texts)
   if (args.length === 0) {
-    res.end("Please set candidates")
+    res.setHeader("content-type", "application/json")
+    res.end(JSON.stringify({
+      "response_type": "ephemeral",
+      "text": "Please set candidates"
+    }))
     return
   }
   const shuffledArgs = shuffle(args)
@@ -74,6 +82,10 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  res.end(result);
+  res.setHeader("content-type", "application/json")
+  res.end(JSON.stringify({
+    "response_type": "in_channel",
+    "text": result
+  }));
 })
 server.listen(8000)
