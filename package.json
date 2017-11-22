@@ -1,0 +1,11 @@
+{
+  "name": "mazel",
+  "description": "Extract elements randomly from multiple candidates",
+  "main": "index.js",
+  "repository": "https://github.com/unblee/mazel.git",
+  "author": "unblee",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  }
+}
