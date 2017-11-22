@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "deploy": "now -e NODE_ENV=production --token $NOW_TOKEN",
+    "deploy": "now -e NODE_ENV=production --token $NOW_TOKEN --public",
     "alias": "now alias --token=$NOW_TOKEN"
   }
 }
