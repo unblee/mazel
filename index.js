@@ -1,31 +1,31 @@
 const http = require('http')
 const url = require('url')
 
-function extractLimit(array) {
-  let limit = -1
+function extractRow(array) {
+  let row = -1
   const filtered = array.filter((el) => {
-    return el.indexOf("limit:") >= 0
+    return el.indexOf("row:") >= 0
   })
   if (filtered.length !== 0) {
-    limit = parseInt(filtered[0].split(":")[1])
+    row = parseInt(filtered[0].split(":")[1])
   }
-  return limit
+  return row
 }
 
-function extractNumber(array) {
-  let number = 1
+function extractColumn(array) {
+  let column = 1
   const filtered = array.filter((el) => {
-    return el.indexOf("number:") >= 0
+    return el.indexOf("column:") >= 0
   })
   if (filtered.length !== 0) {
-    number = parseInt(filtered[0].split(":")[1])
+    column = parseInt(filtered[0].split(":")[1])
   }
-  return number
+  return column
 }
 
 function extractArgs(array) {
   return array.filter((el) => {
-    return el.indexOf("limit:") < 0 && el.indexOf("number:") < 0
+    return el.indexOf("row:") < 0 && el.indexOf("column:") < 0
   })
 }
 
@@ -53,8 +53,8 @@ const server = http.createServer((req, res) => {
   }
   const texts = text.split(" ")
 
-  const limit = extractLimit(texts)
-  const number = extractNumber(texts)
+  const row = extractRow(texts)
+  const column = extractColumn(texts)
   const args = extractArgs(texts)
   if (args.length === 0) {
     res.setHeader("content-type", "application/json")
@@ -70,14 +70,14 @@ const server = http.createServer((req, res) => {
   let f = l = c = 0
   while (true) {
     result += `${c+1}: `
-    l = f + number
+    l = f + column
     if (l > shuffledArgs.length) {
       l = shuffledArgs.length
     }
     result += shuffledArgs.slice(f, l).join(", ") + "\n"
     f = l
     c++
-    if (f === shuffledArgs.length || c === limit) {
+    if (f === shuffledArgs.length || c === row) {
       break
     }
   }
