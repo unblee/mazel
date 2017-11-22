@@ -1,2 +1,3 @@
 # mazel
-候補からランダム抽出
+
+Extract elements randomly from multiple candidates.
