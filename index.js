@@ -29,7 +29,7 @@ function extractArgs(array) {
   })
 }
 
-// Fisher–Yates Shuffle
+// Fisher-Yates Shuffle
 function shuffle(array) {
   let n = array.length, t, i;
   while (n) {
