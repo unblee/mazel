@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - node
+install:
+  - npm install now
+cache:
+  directories:
+  - node_modules
+script: npm run deploy
+after_script: npm run alias
+env:
+  global:
+    secure: yalJU2SaqXQFyy4SBJt7Efi5RfLYLhPdwWjdJjhFA4Zjl+jCQR2Us3Z/VoeMCR9jdyXVushPCuw6CYKSS76gTMCayXt5Jqfx8IOdev77oOyQa4YOhjqJ96+/cLRvTHkLGH7Tu8XWMRvdCgtTZmeu+OJ0lHa7Z8P6Rphc8YjSLR4sWOlvds0xE6M6XNq4TVLvJPLqj8YWQsBwALLqFq3NaDj/wCm+fgcUgEz8blqeIh4CEg2+2YGzhFMJAERztIxdLkroyI3C7DSLnOQIhqrkBFdY5Yo/HxPZnD4uoKl4P/Yy426xWjzY72qEjfPpG0Kef6u2bmyiKlvVwNC/fLEfQELOWQSrGbJsLl0V6tWibtnn0H/X/4yTj5mdXPj4uSBqxHXyRQ2YV7w2Mhns0mCdBxJ8L5HUTKmB7khWsWfO8zaIhZuOf6OQbAKeUzVP6sfkr20W8T+6srOWpm+/lyh1wZ6Y4onWPLKaYHotHsnWm/2C7sA9P2sm59qOXvWS988c4SjfezJGk3Q+wnKSiKHJCd6HaMpHAvZUkqI6RiFoDfKq0P06Aw8YARSUN92iFOQT/sKbJg0risnVFiwRm9w23bzVHwklq2rtS7/fjJIg6gx+w2JppupH0C6W8s/qsRqVn8tQdsgP6SAklRA6VgMp/e0ZpISoQcX3P8JRyub7AU0=
