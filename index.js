@@ -43,7 +43,7 @@ function shuffle(array) {
 
 const server = http.createServer((req, res) => {
   const text = url.parse(req.url, true).query.text
-  if (text === undefined) {
+  if (text === undefined || text.length === 0) {
     res.setHeader("content-type", "application/json")
     res.end(JSON.stringify({
       "response_type": "ephemeral",
