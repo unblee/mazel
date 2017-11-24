@@ -41,6 +41,29 @@ function shuffle(array) {
   return array;
 }
 
+function makeResponseText(row, column, candidates) {
+  if (row === 0) {
+    return ""
+  }
+
+  let res = ""
+  let f = l = c = 0
+  while (true) {
+    l = f + column
+    if (l > candidates.length) {
+      l = candidates.length
+    }
+    res += `${c+1}: `
+    res += candidates.slice(f, l).join(", ") + "\n"
+    f = l
+    c++
+    if (f === candidates.length || c === row) {
+      break
+    }
+  }
+  return res
+}
+
 const server = http.createServer((req, res) => {
   const text = url.parse(req.url, true).query.text
   if (text === undefined || text.length === 0) {
@@ -66,26 +89,10 @@ const server = http.createServer((req, res) => {
   }
   const candidates = shuffle(args)
 
-  let result = ""
-  let f = l = c = 0
-  while (true) {
-    result += `${c+1}: `
-    l = f + column
-    if (l > candidates.length) {
-      l = candidates.length
-    }
-    result += candidates.slice(f, l).join(", ") + "\n"
-    f = l
-    c++
-    if (f === candidates.length || c === row) {
-      break
-    }
-  }
-
   res.setHeader("content-type", "application/json")
   res.end(JSON.stringify({
     "response_type": "in_channel",
-    "text": result
+    "text": makeResponseText(row, column, candidates)
   }));
 })
 server.listen(8000)
