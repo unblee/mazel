@@ -64,20 +64,20 @@ const server = http.createServer((req, res) => {
     }))
     return
   }
-  const shuffledArgs = shuffle(args)
+  const candidates = shuffle(args)
 
   let result = ""
   let f = l = c = 0
   while (true) {
     result += `${c+1}: `
     l = f + column
-    if (l > shuffledArgs.length) {
-      l = shuffledArgs.length
+    if (l > candidates.length) {
+      l = candidates.length
     }
-    result += shuffledArgs.slice(f, l).join(", ") + "\n"
+    result += candidates.slice(f, l).join(", ") + "\n"
     f = l
     c++
-    if (f === shuffledArgs.length || c === row) {
+    if (f === candidates.length || c === row) {
       break
     }
   }
