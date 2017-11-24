@@ -34,12 +34,10 @@ function shuffle(array) {
 }
 
 function makeResponseText(row, column, candidates) {
-  if (row === 0) {
-    return ""
-  }
-
   let res = ""
-  let f = l = c = 0
+  let f = 0
+  let l = 0
+  let c = 0
   while (true) {
     l = f + column
     if (l > candidates.length) {
