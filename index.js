@@ -2,30 +2,22 @@ const http = require('http')
 const url = require('url')
 
 function extractRow(array) {
-  let row = -1
-  const filtered = array.filter((el) => {
-    return el.indexOf("row:") >= 0
+  const found = array.find((el) => {
+    return el.startsWith("row:")
   })
-  if (filtered.length !== 0) {
-    row = Math.abs(parseInt(filtered[0].split(":")[1]))
-  }
-  return row
+  return found === undefined ? -1 : Math.abs(parseInt(found.split(":")[1]))
 }
 
 function extractColumn(array) {
-  let column = 1
-  const filtered = array.filter((el) => {
-    return el.indexOf("column:") >= 0
-  })
-  if (filtered.length !== 0) {
-    column = Math.abs(parseInt(filtered[0].split(":")[1]))
-  }
-  return column
+  const found = array.find((el) => {
+    return el.startsWith("column:")
+  });
+  return found === undefined ? 1 : Math.abs(parseInt(found.split(":")[1]))
 }
 
 function extractArgs(array) {
   return array.filter((el) => {
-    return el.indexOf("row:") < 0 && el.indexOf("column:") < 0
+    return !el.startsWith("row:") && !el.startsWith("column:")
   })
 }
 
