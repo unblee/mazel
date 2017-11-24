@@ -7,7 +7,7 @@ function extractRow(array) {
     return el.indexOf("row:") >= 0
   })
   if (filtered.length !== 0) {
-    row = parseInt(filtered[0].split(":")[1])
+    row = Math.abs(parseInt(filtered[0].split(":")[1]))
   }
   return row
 }
@@ -18,7 +18,7 @@ function extractColumn(array) {
     return el.indexOf("column:") >= 0
   })
   if (filtered.length !== 0) {
-    column = parseInt(filtered[0].split(":")[1])
+    column = Math.abs(parseInt(filtered[0].split(":")[1]))
   }
   return column
 }
