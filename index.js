@@ -5,14 +5,14 @@ function extractRow(array) {
   const found = array.find((el) => {
     return el.startsWith("row:")
   })
-  return found === undefined ? -1 : parseInt(found.split(":")[1])
+  return found === undefined ? -1 : Math.abs(parseInt(found.split(":")[1]))
 }
 
 function extractColumn(array) {
   const found = array.find((el) => {
     return el.startsWith("column:")
   });
-  return found === undefined ? 1 : parseInt(found.split(":")[1])
+  return found === undefined ? 1 : Math.abs(parseInt(found.split(":")[1]))
 }
 
 function extractArgs(array) {
@@ -31,6 +31,29 @@ function shuffle(array) {
     array[i] = t;
   }
   return array;
+}
+
+function makeResponseText(row, column, candidates) {
+  if (row === 0) {
+    return ""
+  }
+
+  let res = ""
+  let f = l = c = 0
+  while (true) {
+    l = f + column
+    if (l > candidates.length) {
+      l = candidates.length
+    }
+    res += `${c+1}: `
+    res += candidates.slice(f, l).join(", ") + "\n"
+    f = l
+    c++
+    if (f === candidates.length || c === row) {
+      break
+    }
+  }
+  return res
 }
 
 const server = http.createServer((req, res) => {
@@ -56,28 +79,12 @@ const server = http.createServer((req, res) => {
     }))
     return
   }
-  const shuffledArgs = shuffle(args)
-
-  let result = ""
-  let f = l = c = 0
-  while (true) {
-    result += `${c+1}: `
-    l = f + column
-    if (l > shuffledArgs.length) {
-      l = shuffledArgs.length
-    }
-    result += shuffledArgs.slice(f, l).join(", ") + "\n"
-    f = l
-    c++
-    if (f === shuffledArgs.length || c === row) {
-      break
-    }
-  }
+  const candidates = shuffle(args)
 
   res.setHeader("content-type", "application/json")
   res.end(JSON.stringify({
     "response_type": "in_channel",
-    "text": result
+    "text": makeResponseText(row, column, candidates)
   }));
 })
 server.listen(8000)
