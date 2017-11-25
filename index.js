@@ -68,7 +68,7 @@ const server = http.createServer((req, res) => {
     }))
     return
   }
-  const texts = text.split(" ")
+  const texts = text.split(/\s+/)
 
   const row = extractRow(texts)
   const column = extractColumn(texts)
