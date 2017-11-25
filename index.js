@@ -5,14 +5,16 @@ function extractRow(array) {
   const found = array.find((el) => {
     return el.startsWith("row:")
   })
-  return found === undefined ? -1 : Math.abs(parseInt(found.split(":")[1]))
+  const res = found === undefined ? -1 : Math.abs(parseInt(found.split(":")[1]))
+  return res !== 0 ? res : -1
 }
 
 function extractColumn(array) {
   const found = array.find((el) => {
     return el.startsWith("column:")
   });
-  return found === undefined ? 1 : Math.abs(parseInt(found.split(":")[1]))
+  const res = found === undefined ? 1 : Math.abs(parseInt(found.split(":")[1]))
+  return res !== 0 ? res : 1
 }
 
 function extractArgs(array) {
