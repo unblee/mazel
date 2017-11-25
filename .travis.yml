@@ -7,7 +7,7 @@ cache:
   directories:
   - node_modules
 script:
-  - [ "$TRAVIS_BRANCH" == "master" ] && npm run deploy
+  - test "$TRAVIS_BRANCH" = "master" && npm run deploy
 after_script: npm run alias
 env:
   global:
