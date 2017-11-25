@@ -33,25 +33,29 @@ function shuffle(array) {
   return array;
 }
 
-function makeResponseText(row, column, candidates) {
-  let res = ""
-  let f = 0
-  let l = 0
-  let c = 0
-  while (true) {
-    l = f + column
-    if (l > candidates.length) {
-      l = candidates.length
+function chunk(array, size) {
+  const len = array.length
+  let res = [],
+      start = 0,
+      end = 0
+  while(end !== len) {
+    end = start + size
+    if (end > len) {
+      end = len
     }
-    res += `${c+1}: `
-    res += candidates.slice(f, l).join(", ") + "\n"
-    f = l
-    c++
-    if (f === candidates.length || c === row) {
-      break
-    }
+    res.push(array.slice(start, end))
+    start = end
   }
   return res
+}
+
+function makeResponseText(row, column, candidates) {
+  const chunked = chunk(candidates, column)
+  const sliced = chunked.slice(0, (row === -1 ? chunked.length : row))
+  const maped = sliced.map((el, idx) => {
+    return `${idx+1}: ` + el.join(", ")
+  })
+  return maped.join("\n")
 }
 
 const server = http.createServer((req, res) => {
