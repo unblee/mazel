@@ -1,6 +1,6 @@
 # mazel
 
-`mazel` is a slack application that extract elements randomly from multiple candidates.
+`mazel` is a slack application that extract elements randomly from candidates.
 
 ## Requirements
 
